@@ -2,7 +2,7 @@ OraEvent Component
 =================
 
 This is a component for [Apache Camel](http://camel.apache.org/) which allows
-for Producing/Consuming Oracle Database Change Notifications
+for Consuming Oracle Database Change Notifications
 
 ## URI Format
 

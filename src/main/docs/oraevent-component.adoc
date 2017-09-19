@@ -41,7 +41,6 @@ The OraEvent component has no options.
 // component options: END
 
 
-
 // endpoint options: START
 The PostgresSQL Event endpoint is configured using URI syntax:
 

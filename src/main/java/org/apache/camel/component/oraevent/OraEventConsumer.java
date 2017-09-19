@@ -55,7 +55,6 @@ public class OraEventConsumer extends DefaultConsumer implements DatabaseChangeL
 
         Properties prop = new Properties();
 
-        //TODO: finish this
         if(endpoint.getDCN_IGNORE_DELETEOP() != null){
             prop.setProperty(OracleConnection.DCN_IGNORE_DELETEOP, endpoint.getDCN_IGNORE_DELETEOP());
         }
@@ -73,6 +72,21 @@ public class OraEventConsumer extends DefaultConsumer implements DatabaseChangeL
         }
         if(endpoint.getDCN_QUERY_CHANGE_NOTIFICATION() != null){
             prop.setProperty(OracleConnection.DCN_QUERY_CHANGE_NOTIFICATION, endpoint.getDCN_QUERY_CHANGE_NOTIFICATION());
+        }
+        if(endpoint.getNTF_LOCAL_HOST() != null){
+            prop.setProperty(OracleConnection.NTF_LOCAL_HOST, endpoint.getNTF_LOCAL_HOST());
+        }
+        if(endpoint.getNTF_LOCAL_TCP_PORT() != null){
+            prop.setProperty(OracleConnection.NTF_LOCAL_TCP_PORT, endpoint.getNTF_LOCAL_TCP_PORT());
+        }
+        if(endpoint.getNTF_QOS_RELIABLE() != null){
+            prop.setProperty(OracleConnection.NTF_QOS_RELIABLE, endpoint.getNTF_QOS_RELIABLE());
+        }
+        if(endpoint.getNTF_QOS_PURGE_ON_NTFN() != null){
+            prop.setProperty(OracleConnection.NTF_QOS_RELIABLE, endpoint.getNTF_QOS_PURGE_ON_NTFN());
+        }
+        if(endpoint.getNTF_TIMEOUT() != null){
+            prop.setProperty(OracleConnection.NTF_TIMEOUT, endpoint.getNTF_TIMEOUT());
         }
 
         // first step: create a registration on the server:

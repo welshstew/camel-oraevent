@@ -93,8 +93,8 @@ public class OraEventComponent extends UriEndpointComponent {
 
         OraEventEndpoint endpoint = new OraEventEndpoint(uri, this, target, query);
 
-        //TODO: finish this off
 
+        //some defaults
         if(dcnIgnoreDeleteOp == null){
             dcnIgnoreDeleteOp = "false";
         }
@@ -115,11 +115,22 @@ public class OraEventComponent extends UriEndpointComponent {
             dcnQueryChangeNotification = "true";
         }
 
+        if(ntfQosReliable == null){
+            ntfQosReliable = "true";
+        }
+
         endpoint.setDCN_IGNORE_DELETEOP(dcnIgnoreDeleteOp);
         endpoint.setDCN_IGNORE_INSERTOP(dcnIgnoreInsertOp);
         endpoint.setDCN_IGNORE_UPDATEOP(dcnIgnoreUpdateOp);
+        endpoint.setDCN_NOTIFY_CHANGELAG(dcnNotifyChangeLag);
         endpoint.setDCN_NOTIFY_ROWIDS(dcnNotifyRowIds);
         endpoint.setDCN_QUERY_CHANGE_NOTIFICATION(dcnQueryChangeNotification);
+        endpoint.setNTF_LOCAL_HOST(ntfLocalHost);
+        endpoint.setNTF_LOCAL_TCP_PORT(ntfLocalTcpPort);
+        endpoint.setNTF_QOS_PURGE_ON_NTFN(ntfQosPurgeOnNtfn);
+        endpoint.setNTF_QOS_RELIABLE(ntfQosReliable);
+        endpoint.setNTF_TIMEOUT(ntfTimeout);
+
 
         return endpoint;
     }

@@ -30,12 +30,12 @@
   <artifactId>camel-oraevent</artifactId>
   <packaging>jar</packaging>
   <name>Camel :: OraEvent</name>
-  <description>Component for sending/receiving notifications from Oracale via the ojdbc driver</description>
+  <description>Component for sending/receiving notifications from Oracle via the ojdbc driver</description>
 
   <properties>
     <camel.osgi.export.pkg>org.apache.camel.component.oraevent.*</camel.osgi.export.pkg>
     <camel.osgi.export.service>org.apache.camel.spi.ComponentResolver;component=oraevent</camel.osgi.export.service>
-    <camel.osgi.import.additional>com.impossibl.pgjdbc-ng.*;version="(0.4,1]"</camel.osgi.import.additional>
+    <camel.osgi.import.additional>com.oracle.*;version="(7.0.0]"</camel.osgi.import.additional>
     <ojdbc7.version>7.0.0</ojdbc7.version>
   </properties>
 
@@ -75,6 +75,11 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

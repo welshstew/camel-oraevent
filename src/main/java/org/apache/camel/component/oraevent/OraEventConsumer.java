@@ -109,18 +109,15 @@ public class OraEventConsumer extends DefaultConsumer implements DatabaseChangeL
             rs.close();
             stmt.close();
 
-        }        catch(SQLException ex)
-        {
+        }catch(SQLException ex) {
             // if an exception occurs, we need to close the registration in order
             // to interrupt the thread otherwise it will be hanging around.
             if(dbConnection != null)
                 dbConnection.unregisterDatabaseChangeNotification(dcr);
             throw ex;
         }
-        finally
-        {
-            try
-            {
+        finally {
+            try {
                 // Note that we close the connection!
                 dbConnection.close();
             }

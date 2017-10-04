@@ -19,19 +19,27 @@ package org.apache.camel.oraevent;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.main.Main;
+import org.apache.camel.test.junit4.CamelTestSupport;
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.jdbc.core.JdbcTemplate;
 
-public class IntegrationTest {
+public class IntegrationTest extends CamelTestSupport {
 
-    private Main main;
     private BasicDataSource ds;
+    JdbcTemplate jdbc;
 
-    @Before
-    public void setUp() throws Exception {
+    @Override
+    protected JndiRegistry createRegistry() throws Exception {
+        JndiRegistry jndi = super.createRegistry();
 
         ds = new BasicDataSource();
         ds.setDriverClassName("oracle.jdbc.OracleDriver");
@@ -40,35 +48,40 @@ public class IntegrationTest {
         ds.setPassword("Password1!");
         ds.setAccessToUnderlyingConnectionAllowed(true);
 
-        main = new Main();
-        main.bind("ds", ds);
-        main.addRouteBuilder(buildConsumer());
+        jdbc = new JdbcTemplate(ds);
+        jdbc.execute("DROP TABLE DEPT");
+        jdbc.execute("CREATE TABLE DEPT(DEPTNO NUMBER,DNAME VARCHAR2(50))");
 
+        //use jndi.bind to bind your beans
+        jndi.bind("ds", ds);
+        jndi.bind("jdbcTemplate", jdbc);
+        return jndi;
     }
 
-    RouteBuilder buildConsumer() {
-        RouteBuilder builder = new RouteBuilder() {
-
-            @Override
-            public void configure() throws Exception {
+    @Override
+    protected RoutesBuilder createRouteBuilder() throws Exception {
+        return new RouteBuilder() {
+            public void configure() {
                 fromF("oraevent://select * from dept where deptno='45'?dataSource=ds")
-                        .process(new Processor() {
-                            @Override
-                            public void process(Exchange exchange) throws Exception {
-                                String hello = "";
-                            }
-                        })
-                    .to("log:org.apache.camel.oraevent.OraEventConsumer?level=INFO");
+                        .to("mock:dbevent");
             }
         };
-
-        return builder;
     }
 
 
     @Test
-    public void waitHere() throws Exception {
-        main.run();
-        Thread.sleep(60000);
+    public void testEventFired() throws Exception {
+
+        MockEndpoint me = (MockEndpoint) context.getEndpoint("mock:dbevent");
+        me.expectedMessageCount(1);
+        jdbc.execute("insert into dept (deptno,dname) values ('45','cool dept')");
+        Thread.sleep(1000);
+        me.assertIsSatisfied();
+    }
+
+    @After
+    public void tearDown(){
+        JdbcTemplate jdbcTemplate = (JdbcTemplate) context.getRegistry().lookupByName("jdbcTemplate");
+        jdbc.execute("DROP TABLE DEPT");
     }
 }

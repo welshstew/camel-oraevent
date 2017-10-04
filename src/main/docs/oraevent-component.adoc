@@ -1,10 +1,7 @@
-## PostgresSQL Event Component
-
-*Available as of Camel version 2.15*
+## OraEvent Component
 
 This is a component for Apache Camel which allows for
-Producing/Consuming PostgreSQL events related to the LISTEN/NOTIFY
-commands added since PostgreSQL 8.3.
+Producing Oracle Database events related to the Oracle Database Change Notifications
 
 Maven users will need to add the following dependency to their `pom.xml`
 for this component:
@@ -13,7 +10,7 @@ for this component:
 ------------------------------------------------------------
 <dependency>
     <groupId>org.apache.camel</groupId>
-    <artifactId>camel-pgevent</artifactId>
+    <artifactId>camel-oraevent</artifactId>
     <version>x.x.x</version>
     <!-- use the same version as your Camel core version -->
 </dependency>
@@ -21,13 +18,12 @@ for this component:
 
 URI format
 
-The pgevent component uses the following two styles of endpoint URI
+The oraevent component uses the following two styles of endpoint URI
 notation:
 
 [source,java]
 -------------------------------------------------
-pgevent:datasource[?parameters]
-pgevent://host:port/database/channel[?parameters]
+oraevent:query?dataSource=datasource[&parameters]
 -------------------------------------------------
 
 You can append query options to the URI in the following format,
@@ -42,7 +38,7 @@ The OraEvent component has no options.
 
 
 // endpoint options: START
-The PostgresSQL Event endpoint is configured using URI syntax:
+The OraEvent endpoint is configured using URI syntax:
 
     oraevent:query?dataSource=datasource
 
@@ -53,7 +49,7 @@ with the following path and query parameters:
 [width="100%",cols="2,5,^1,2",options="header"]
 |=======================================================================
 | Name | Description | Default | Type
-| **query** | The query for notifications | no default | String
+| **query** | The query for notifications | no default and mandatory | String
 |=======================================================================
 
 #### Query Parameters (7 parameters):
@@ -62,17 +58,17 @@ with the following path and query parameters:
 |=======================================================================
 | Name | Description | Default | Type
 | **datasource** (common) | To connect using the given javax.sql.DataSource instead of using hostname and port. |  | DataSource
-| ignoreDeleteOp | |
-| ignoreInsertOp | |
-| ignoreUpdateOp | |
-| notifyChangeLag | |
-| notifyRowIds | |
-| queryChangeNotification | |
-| localHost | |
-| localTcpPort | |
-| qosPurgeOnNtfn | |
-| qosReliable | |
-| ntfTimeout | |
+| ignoreDeleteOp          | DCN_IGNORE_DELETEOP - If set to true, DELETE operations will not generate any database change event. | false | String
+| ignoreInsertOp          | DCN_IGNORE_INSERTOP - If set to true, INSERT operations will not generate any database change event. | false | String
+| ignoreUpdateOp          | DCN_IGNORE_UPDATEOP - If set to true, UPDATE operations will not generate any database change event. | false | String
+| notifyChangeLag         | DCN_NOTIFY_CHANGELAG - Specifies the number of transactions by which the client is willing to lag behind. Note: If this option is set to any value other than 0, then ROWID level granularity of information will not be available in the events, even if the DCN_NOTIFY_ROWIDS option is set to true. | String
+| notifyRowIds            | DCN_NOTIFY_ROWIDS - Database change events will include row-level details, such as operation type and ROWID. | String
+| queryChangeNotification | DCN_QUERY_CHANGE_NOTIFICATION - Activates query change notification instead of object change notification.  Note: This option is available only when running against an 11.0 database. | String
+| localHost               | NTF_LOCAL_HOST - Specifies the IP address of the computer that will receive the notifications from the server. | String
+| localTcpPort            | NTF_LOCAL_TCP_PORT - Specifies the TCP port that the driver should use for the listener socket. | String
+| qosPurgeOnNtfn          | NTF_QOS_PURGE_ON_NTFN - Specifies if the registration should be expunged on the first notification event. | String
+| qosReliable             | NTF_QOS_RELIABLE - Specifies whether or not to make the notifications persistent, which comes at a performance cost. | String
+| ntfTimeout              | DCN_IGNORE_DELETEOP - Specifies the time in seconds after which the registration will be automatically expunged by the database. | String
 |=======================================================================
 // endpoint options: END
 
@@ -83,4 +79,4 @@ with the following path and query parameters:
 * link:component.html[Component]
 * link:endpoint.html[Endpoint]
 * link:getting-started.html[Getting Started]
-* link:https://docs.oracle.com/cd/E11882_01/java.112/e16548/dbchgnf.htm#JJDBC28820[oracle Database Change Notification]
+* link:https://docs.oracle.com/cd/E11882_01/java.112/e16548/dbchgnf.htm#JJDBC28820[Oracle Database Change Notification]

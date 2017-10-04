@@ -61,14 +61,14 @@ with the following path and query parameters:
 | ignoreDeleteOp          | DCN_IGNORE_DELETEOP - If set to true, DELETE operations will not generate any database change event. | false | String
 | ignoreInsertOp          | DCN_IGNORE_INSERTOP - If set to true, INSERT operations will not generate any database change event. | false | String
 | ignoreUpdateOp          | DCN_IGNORE_UPDATEOP - If set to true, UPDATE operations will not generate any database change event. | false | String
-| notifyChangeLag         | DCN_NOTIFY_CHANGELAG - Specifies the number of transactions by which the client is willing to lag behind. Note: If this option is set to any value other than 0, then ROWID level granularity of information will not be available in the events, even if the DCN_NOTIFY_ROWIDS option is set to true. | String
-| notifyRowIds            | DCN_NOTIFY_ROWIDS - Database change events will include row-level details, such as operation type and ROWID. | String
-| queryChangeNotification | DCN_QUERY_CHANGE_NOTIFICATION - Activates query change notification instead of object change notification.  Note: This option is available only when running against an 11.0 database. | String
-| localHost               | NTF_LOCAL_HOST - Specifies the IP address of the computer that will receive the notifications from the server. | String
-| localTcpPort            | NTF_LOCAL_TCP_PORT - Specifies the TCP port that the driver should use for the listener socket. | String
-| qosPurgeOnNtfn          | NTF_QOS_PURGE_ON_NTFN - Specifies if the registration should be expunged on the first notification event. | String
-| qosReliable             | NTF_QOS_RELIABLE - Specifies whether or not to make the notifications persistent, which comes at a performance cost. | String
-| ntfTimeout              | DCN_IGNORE_DELETEOP - Specifies the time in seconds after which the registration will be automatically expunged by the database. | String
+| notifyChangeLag         | DCN_NOTIFY_CHANGELAG - Specifies the number of transactions by which the client is willing to lag behind. Note: If this option is set to any value other than 0, then ROWID level granularity of information will not be available in the events, even if the DCN_NOTIFY_ROWIDS option is set to true. | | String
+| notifyRowIds            | DCN_NOTIFY_ROWIDS - Database change events will include row-level details, such as operation type and ROWID. | | String
+| queryChangeNotification | DCN_QUERY_CHANGE_NOTIFICATION - Activates query change notification instead of object change notification.  Note: This option is available only when running against an 11.0 database. | | String
+| localHost               | NTF_LOCAL_HOST - Specifies the IP address of the computer that will receive the notifications from the server. | | String
+| localTcpPort            | NTF_LOCAL_TCP_PORT - Specifies the TCP port that the driver should use for the listener socket. | | String
+| qosPurgeOnNtfn          | NTF_QOS_PURGE_ON_NTFN - Specifies if the registration should be expunged on the first notification event. | | String
+| qosReliable             | NTF_QOS_RELIABLE - Specifies whether or not to make the notifications persistent, which comes at a performance cost. | | String
+| ntfTimeout              | DCN_IGNORE_DELETEOP - Specifies the time in seconds after which the registration will be automatically expunged by the database. | | String
 |=======================================================================
 // endpoint options: END
 

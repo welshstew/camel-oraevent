@@ -21,13 +21,17 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.apache.camel</groupId>
-    <artifactId>components</artifactId>
-    <version>2.20.0-SNAPSHOT</version>
-  </parent>
+  <!--<parent>-->
+    <!--<groupId>org.apache.camel</groupId>-->
+    <!--<artifactId>components</artifactId>-->
+    <!--<version>2.20.2</version>-->
+  <!--</parent>-->
 
+  <groupId>org.apache.camel</groupId>
   <artifactId>camel-oraevent</artifactId>
+  <version>2.20.2</version>
+
+
   <packaging>jar</packaging>
   <name>Camel :: OraEvent</name>
   <description>Component for sending/receiving notifications from Oracle via the ojdbc driver</description>
@@ -38,6 +42,18 @@
     <camel.osgi.import.additional>com.oracle.*;version="(7.0.0]"</camel.osgi.import.additional>
     <ojdbc7.version>7.0.0</ojdbc7.version>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-parent</artifactId>
+        <version>2.20.2</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>

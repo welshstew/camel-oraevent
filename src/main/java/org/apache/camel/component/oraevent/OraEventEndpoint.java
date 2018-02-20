@@ -47,53 +47,41 @@ public class OraEventEndpoint extends DefaultEndpoint {
     @Metadata(required = "true")
     private String query;
 
-    @UriParam @Metadata(required = "true")
+    @UriParam(description = "the oracle dataSource")
+    @Metadata(required = "true")
     private DataSource datasource;
 
-    //If set to true, DELETE operations will not generate any database change event.
-    @UriParam(defaultValue = "false")
+    @UriParam(description = "If set to true, DELETE operations will not generate any database change event", defaultValue = "false")
     private String DCN_IGNORE_DELETEOP;
 
-    //If set to true, INSERT operations will not generate any database change event.
-    @UriParam(defaultValue = "false")
+    @UriParam(description = "If set to true, INSERT operations will not generate any database change event.", defaultValue = "false")
     private String DCN_IGNORE_INSERTOP;
 
-    //If set to true, UPDATE operations will not generate any database change event.
-    @UriParam(defaultValue = "false")
+    @UriParam(description = "If set to true, UPDATE operations will not generate any database change event.", defaultValue = "false")
     private String DCN_IGNORE_UPDATEOP;
 
-    //Specifies the number of transactions by which the client is willing to lag behind.
-    //Note: If this option is set to any value other than 0, then ROWID level granularity of information will not be available in the events, even if the DCN_NOTIFY_ROWIDS option is set to true.
-    @UriParam(defaultValue = "0")
+    @UriParam(description = "Specifies the number of transactions by which the client is willing to lag behind.  Note: If this option is set to any value other than 0, then ROWID level granularity of information will not be available in the events, even if the DCN_NOTIFY_ROWIDS option is set to true.", defaultValue = "0")
     private String DCN_NOTIFY_CHANGELAG;
 
-    //Database change events will include row-level details, such as operation type and ROWID.
-    @UriParam(defaultValue = "true")
+    @UriParam(description = "Database change events will include row-level details, such as operation type and ROWID.", defaultValue = "true")
     private String DCN_NOTIFY_ROWIDS;
 
-    //Activates query change notification instead of object change notification.
-    //Note: This option is available only when running against an 11.0 database.
-    @UriParam(defaultValue = "true")
+    @UriParam(description = "Activates query change notification instead of object change notification. Note: This option is available only when running against an 11.0 database.", defaultValue = "true")
     private String DCN_QUERY_CHANGE_NOTIFICATION;
 
-    //Specifies the IP address of the computer that will receive the notifications from the server.
-    @UriParam
+    @UriParam(description = "Specifies the IP address of the computer that will receive the notifications from the server.")
     private String NTF_LOCAL_HOST;
 
-    //Specifies the TCP port that the driver should use for the listener socket.
-    @UriParam
+    @UriParam(description = "Specifies the TCP port that the driver should use for the listener socket.")
     private String NTF_LOCAL_TCP_PORT;
 
-    //Specifies if the registration should be expunged on the first notification event.
-    @UriParam(defaultValue = "false")
+    @UriParam(description = "Specifies if the registration should be expunged on the first notification event.", defaultValue = "false")
     private String NTF_QOS_PURGE_ON_NTFN;
 
-    //Specifies whether or not to make the notifications persistent, which comes at a performance cost.
-    @UriParam(defaultValue = "false")
+    @UriParam(description = "Specifies whether or not to make the notifications persistent, which comes at a performance cost.", defaultValue = "false")
     private String NTF_QOS_RELIABLE;
 
-    //Specifies the time in seconds after which the registration will be automatically expunged by the database.
-    @UriParam
+    @UriParam(description = "Specifies the time in seconds after which the registration will be automatically expunged by the database.")
     private String NTF_TIMEOUT;
 
     private final String uri;
